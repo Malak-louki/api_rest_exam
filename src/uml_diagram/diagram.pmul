@@ -1,0 +1,67 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class User {
+  - String id
+  - String username
+  - String email
+  - String password
+}
+
+class Group {
+  - String id
+  - String name
+  - String description
+  - LocalDate creationDate
+}
+
+class Expense {
+  - String id
+  - String label
+  - BigDecimal amount
+  - LocalDate expenseDate
+}
+
+class ExpenseShare {
+  - String id
+  - BigDecimal amount
+}
+
+class Settlement {
+  - String id
+  - BigDecimal amount
+  - LocalDate paymentDate
+}
+
+' ========================
+'        RELATIONS
+' ========================
+
+User "1" -- "0..*" Expense : pays >
+' Un utilisateur peut payer plusieurs dépenses, chaque dépense a un seul payeur
+
+Expense "1" -- "1" Group
+' Chaque dépense appartient à un et un seul groupe
+
+Group "1" -- "0..*" Expense
+' Un groupe peut contenir plusieurs dépenses
+
+ExpenseShare "1" --> "1" Expense
+' Chaque part de dépense (ExpenseShare) est liée à une seule dépense
+
+ExpenseShare "1" --> "1" User
+' Chaque part de dépense est associée à un utilisateur spécifique
+
+User "1" --> "0..*" Settlement : fromUser
+' Un utilisateur peut effectuer plusieurs remboursements (envoyer de l'argent à d'autres)
+
+User "1" <-- "0..*" Settlement : toUser
+' Un utilisateur peut recevoir plusieurs remboursements de la part d'autres membres
+
+User "0..*" -- "0..*" Group : member
+' Un utilisateur peut appartenir à plusieurs groupes, et un groupe contient plusieurs utilisateurs
+
+Settlement "1" -- "1" Group
+' Chaque remboursement est lié à un groupe spécifique
+
+@enduml
