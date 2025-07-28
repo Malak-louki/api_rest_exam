@@ -1,20 +1,14 @@
 package com.hb.cda.api_rest_exam.service;
 
-import com.hb.cda.api_rest_exam.repository.UserRepository;
-import lombok.AllArgsConstructor;
+import com.hb.cda.api_rest_exam.dto.UserCreateDTO;
+import com.hb.cda.api_rest_exam.dto.UserDTO;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-@Service
-@AllArgsConstructor
-public class UserService implements UserDetailsService {
+public interface UserService {
+    UserDTO create(UserCreateDTO dto);
+    List<UserDTO> findAll();
+    UserDTO getById(String id);
+    void delete(String id);
 
-    private UserRepository repo;
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return repo.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-    }
 }

@@ -11,7 +11,6 @@ public class UserMapper {
         UserDTO dto = new UserDTO();
         dto.setId(user.getId());
         dto.setEmail(user.getEmail());
-        dto.setPassword(user.getPassword());
         dto.setRole(user.getRole());
         return dto;
     }
@@ -20,8 +19,8 @@ public class UserMapper {
         if(user == null) return null;
         UserCreateDTO createDTO = new UserCreateDTO();
         createDTO.setEmail(user.getEmail());
-        createDTO.setRole(user.getRole());
         createDTO.setUsername(user.getUsername());
+        createDTO.setPassword(user.getPassword());
         return createDTO;
     }
 
@@ -29,8 +28,8 @@ public class UserMapper {
         if(dto == null)return null;
         User user = new User();
         user.setEmail(dto.getEmail());
-        user.setRole(dto.getRole());
         user.setUsername(dto.getUsername());
+        user.setPassword(dto.getPassword());
         return user;
     }
 

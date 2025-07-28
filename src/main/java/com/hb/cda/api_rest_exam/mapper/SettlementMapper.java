@@ -1,6 +1,7 @@
 package com.hb.cda.api_rest_exam.mapper;
 
 import com.hb.cda.api_rest_exam.dto.SettlementDTO;
+import com.hb.cda.api_rest_exam.entity.Group;
 import com.hb.cda.api_rest_exam.entity.Settlement;
 import com.hb.cda.api_rest_exam.entity.User;
 
@@ -22,15 +23,15 @@ public class SettlementMapper {
 
     }
 
-    public static Settlement toSettlement(SettlementDTO dto, User fromUser, User toUser) {
+    public static Settlement toSettlement(SettlementDTO dto, User fromUser, User toUser, Group group) {
         if (dto == null) return null;
         Settlement settlement = new Settlement();
         settlement.setId(dto.getId());
         settlement.setAmount(dto.getAmount());
         settlement.setPaymentDate(dto.getPaymentDate());
-        settlement.setToUser(toUser);
         settlement.setFromUser(fromUser);
+        settlement.setToUser(toUser);
+        settlement.setGroup(group);
         return settlement;
-
     }
 }
