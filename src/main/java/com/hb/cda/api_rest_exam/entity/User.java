@@ -2,6 +2,7 @@ package com.hb.cda.api_rest_exam.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,8 +25,11 @@ public class User  implements UserDetails {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String role;
+    @NotNull
     private String username;
+    @NotNull
     private String password;
+    @NotNull
     private String email;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

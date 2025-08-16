@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class GroupMapper {
 
-    public static GroupDTO toDTO(Group group) {
+    public static GroupDTO toGroupDTO(Group group) {
         if(group == null) return null;
 
         GroupDTO dto = new GroupDTO();

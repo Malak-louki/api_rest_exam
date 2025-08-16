@@ -19,6 +19,7 @@ public class ExpenseShare {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private BigDecimal amount;
+    private Boolean isPaid;
     @ManyToOne
     private User user;
 

@@ -14,8 +14,13 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain accessControl(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable());
-        http.authorizeHttpRequests(request -> request.anyRequest().permitAll());
-        //pour dire à spring security de ne jamais créer de session, du fait qu'on utilisera du JWT
+
+        http.authorizeHttpRequests(request -> request
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/user/create").permitAll()
+                .anyRequest().authenticated()
+        );
+
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();
     }

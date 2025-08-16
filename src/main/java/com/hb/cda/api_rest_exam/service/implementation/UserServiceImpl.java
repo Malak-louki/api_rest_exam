@@ -1,9 +1,14 @@
 package com.hb.cda.api_rest_exam.service.implementation;
 
+import com.hb.cda.api_rest_exam.dto.ExpenseDTO;
+import com.hb.cda.api_rest_exam.dto.GroupDTO;
 import com.hb.cda.api_rest_exam.dto.UserCreateDTO;
 import com.hb.cda.api_rest_exam.dto.UserDTO;
 import com.hb.cda.api_rest_exam.entity.User;
+import com.hb.cda.api_rest_exam.mapper.ExpenseMapper;
+import com.hb.cda.api_rest_exam.mapper.GroupMapper;
 import com.hb.cda.api_rest_exam.mapper.UserMapper;
+import com.hb.cda.api_rest_exam.repository.GroupRepository;
 import com.hb.cda.api_rest_exam.repository.UserRepository;
 import com.hb.cda.api_rest_exam.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +23,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final GroupRepository groupRepository;
 
 
     @Override
@@ -42,6 +48,28 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id)
                 .map(UserMapper::toUserDTO)
                 .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    @Override
+    public List<GroupDTO> getGroupsByUserId(String userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return user.getGroups()
+                .stream()
+                .map(GroupMapper::toGroupDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ExpenseDTO> getExpensesByUserId(String userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return user.getExpenses()
+                .stream()
+                .map(ExpenseMapper::toExpenseDTO)
+                .collect(Collectors.toList());
     }
 
     @Override

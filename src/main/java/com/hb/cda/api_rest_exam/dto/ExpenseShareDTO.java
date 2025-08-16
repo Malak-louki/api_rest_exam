@@ -8,6 +8,6 @@ import java.math.BigDecimal;
 public class ExpenseShareDTO {
         private String id;
         private BigDecimal amount;
-        private String userId;       // bénéficiaire
+        private String userId;
         private String expenseId;
     }
